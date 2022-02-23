@@ -9,7 +9,6 @@ export class AuthService {
 
   constructor(private fireauth : AngularFireAuth , private router : Router) { }
 
-
   // login method 
 
   login(email : string, password : string) {
@@ -34,6 +33,7 @@ export class AuthService {
       this.router.navigate(['/register']);
     })
   }
+
  // logout Method
   logout() {
     this.fireauth.signOut().then( () => {

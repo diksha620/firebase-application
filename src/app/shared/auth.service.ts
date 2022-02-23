@@ -23,6 +23,8 @@ export class AuthService {
     })
   }
 
+  //register Method 
+
   register(email : string, password : string) {
     this.fireauth.createUserWithEmailAndPassword(email, password).then( res => {
       alert('Registration Successful');
@@ -32,7 +34,7 @@ export class AuthService {
       this.router.navigate(['/register']);
     })
   }
-
+ // logout Method
   logout() {
     this.fireauth.signOut().then( () => {
       localStorage.removeItem('token');

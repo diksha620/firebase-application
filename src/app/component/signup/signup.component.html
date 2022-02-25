@@ -1,0 +1,35 @@
+<div class="form-container">
+<h1 style="text-align: center;">SignUp</h1>
+<form [formGroup] = "signupForm" (ngSubmit) = "signupUser()">
+    <input type = "text" placeholder="enter your first Name" formControlName = "firstname">
+    <br>
+    <span style="color: red;" *ngIf = "firstname && firstname.invalid && firstname.touched">Enter correct firstname</span>
+    <br>
+    <input type = "text" placeholder="enter your Last Name" formControlName = "lastname">
+    <br>
+    <span style="color: red;" *ngIf = "lastname && lastname.invalid && lastname.touched">Enter correct lastname</span>
+    <br>
+    <input type = "text" placeholder="enter your email" formControlName = "email">
+    <br>
+    <span style="color: red;" *ngIf = "email && email.invalid && email.touched">Enter correct email</span>
+    <br>
+    <span style="color: red;" *ngIf ="emailnotregistered">Email is already registered</span>
+    
+    <input type = "password" placeholder="enter your password" formControlName = "password">
+    <br>
+    <span style="color: red;" *ngIf = "password && password.invalid && password.touched">Enter correct password</span>
+    <br>
+    <input type="password" placeholder="enter confirm password" formControlName = "cpassword" > 
+    <br>
+    <span style="color: red;" *ngIf = "cpassword && cpassword.invalid && cpassword.touched">Enter correct confirm password</span>
+    <br>
+    <span style="color: red;" *ngIf ="passwordnotmatch">Enter same password and confirm password</span>
+    <br>
+    <span>Already Account ?<a routerLink = "/signin" style="margin-left: 1vw;">SignIn</a></span>
+    <br>
+    <br>
+    <button [disabled] = "signupForm.invalid" type="submit">SignUp</button>
+
+</form>
+
+</div>

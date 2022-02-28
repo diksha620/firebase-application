@@ -1,20 +1,71 @@
-<div class="container-fluid">
-    <div class="row mt-5">
-        <div class="col"></div>
-        <div class="col-4">
-            <div class="card shadow">
-                <div class="card-body">
-                    <form>
-                        <div class="mb-3">
-                            <h4 class="text-secondary text-muted">Welcome</h4>
-                        </div>
-                        
-                        <button type="button" class="btn btn-info text-center" (click)="logout()">logout</button>
-                        
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col"></div>
+<nav class="navbar navbar-light bg-dark">
+  <form class="container-fluid justify-content-start">
+    <span style="color: white">Home</span>
+    <button
+      type="button"
+      class="btn btn-info"
+      style="margin-left: 90vw"
+      (click)="logout()"
+    >
+      logout
+    </button>
+  </form>
+</nav>
+
+<div class="example-container">
+    <h2>To do</h2>
+  
+    <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="todo"
+      [cdkDropListConnectedTo]="[doneList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
     </div>
-</div>
+  </div>
+  
+  <div class="example-container">
+    <h2>Done</h2>
+  
+    <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="products"
+      [cdkDropListConnectedTo]="[todoList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <!-- <div class="example-box" *ngIf = "done">
+      <div class="example-box" *ngFor="let item of products" cdkDrag>
+        <mat-form-field *ngIf= "item.type === 'text'" 
+        class="example-full-width"
+        appearance = "fill">
+        <mat-label>firstName</mat-label>
+        <input matInput placeholder="Enter your firstname" value = "">
+         
+        <mat-label>Lastname</mat-label>
+        <input matInput placeholder="Enter your Lastname" value = "">
+        </mat-form-field>
+        <mat-form-field *ngIf = "item.type === 'password'"
+        class="example-full-width"
+        appearance = "fill" 
+        >
+        <mat-label>password</mat-label>
+        <input matInput placeholder="Enter your password" value = "">
+        </mat-form-field>
+
+         <mat-form-field *ngIf =  "item.type === 'textarea'"
+        class="example-full-width"
+        appearance = "fill" 
+        >
+        <mat-label>Remarks</mat-label>
+        <input matInput placeholder="Write your message" value = "">
+
+         </mat-form-field>
+        {{item.value}}</div>
+    </div> -->
+    </div>
+  </div>
+  
+  

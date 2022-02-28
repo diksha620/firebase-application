@@ -16,8 +16,12 @@ import { FormsModule } from '@angular/forms';
 import { SignupComponent } from './component/signup/signup.component';
 import { SignInComponent } from './component/sign-in/sign-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
-
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+// import { MaterialModule } from "./material.module";
+import { MatInputModule } from  '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +29,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     RegisterComponent,
     DashboardComponent,
     SignupComponent,
-    SignInComponent
+    SignInComponent,
+   
+
   ],
   imports: [
     BrowserModule,
@@ -38,6 +44,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     AngularFirestoreModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),
+    BrowserAnimationsModule,
+    DragDropModule,
+    MatInputModule,
+    MatFormFieldModule,
+
 
 
   ],

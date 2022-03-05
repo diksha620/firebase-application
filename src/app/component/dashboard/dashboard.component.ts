@@ -169,7 +169,7 @@ export class DashboardComponent implements OnInit {
   saveForm(fileName:any) {
    
      const isUpdateForm = this.products[0].fileName ? true : false
-     console.log(this.products[0].fileName)
+    //  console.log(this.products[0].fileName)
     let dialogRef = this.Dialog.open(SaveFormComponent , {
       data : {
         fileName , isUpdateForm
@@ -183,11 +183,11 @@ export class DashboardComponent implements OnInit {
   }
   
 
-  deleteRequest(id: number) {
-    this.dashboardService.deleteitem(id).subscribe(() => {
-      this.getDataFromJson();
-    });
-  }
+  // deleteRequest(id: number) {
+  //   this.dashboardService.deleteitem(id).subscribe(() => {
+  //     this.getDataFromJson();
+  //   });
+  // }
   
   logout() {
     this.auth.logout();

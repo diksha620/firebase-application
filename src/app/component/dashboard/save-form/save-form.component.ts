@@ -30,26 +30,27 @@ export default class SaveFormComponent implements OnInit {
         this.dashboardService.getRequest().subscribe((res: any) => {
           const getId = JSON.parse(JSON.stringify(res));
           res = res.map((id: any) => {
-            delete res.formId;
-            delete res.fileName;
-            return res;
+            delete id.formId;
+            delete id.fileName;
+            return id;
           });
+
           const formDataDetails = {
             formData: res,
             fileName: this.data.fileName,
           };
+
           this.dashboardService
             .putJsonDataInForm(getId[0].formId, formDataDetails)
             .subscribe(() => {
               this.dashboardService.getRequest().subscribe((response: any) => {
-                Array.from(response).forEach((Id: any) => {
-                  this.dashboardService.deleteitem(Id.id).subscribe(() => {});
+                Array.from(response).forEach((c: any) => {
+                  this.dashboardService.deleteitem(c.id).subscribe(() => {});
                 });
               });
           });
-          this.router.navigate(['/forms'])
-
         });
+        
       } else {
         this.dashboardService.getRequest().subscribe((products) => {
           const formDataDetails = {
@@ -58,12 +59,12 @@ export default class SaveFormComponent implements OnInit {
           };
           this.dashboardService.saveFormData(formDataDetails).subscribe(() => {
             this.dashboardService.getRequest().subscribe((response: any) => {
-              Array.from(response).forEach((Id: any) => {
-                this.dashboardService.deleteitem(Id.id).subscribe(() => {});
+              Array.from(response).forEach((c: any) => {
+                this.dashboardService.deleteitem(c.id).subscribe(() => {});
               });
             });
           });
-          this.router.navigate(['/forms'])
+         
         });
       }
     }

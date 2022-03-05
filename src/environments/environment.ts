@@ -12,6 +12,7 @@ export const environment = {
     messagingSenderId: "421888707332",
     appId: "1:421888707332:web:243938e0d6dfda7c3a5e51"
   },
+  ApiPoint: 'http://localhost:3000',
 };
 
 /*

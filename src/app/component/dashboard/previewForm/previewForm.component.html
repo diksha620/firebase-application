@@ -1,0 +1,47 @@
+
+
+<mat-card>
+<form [formGroup] = "previewForms" (ngSubmit) = "previewSubmit()">
+<div  *ngFor="let item of products" >
+  <mat-form-field
+    *ngIf="item.type === 'text'"
+    class="example-full-width"
+    appearance="fill"
+  >
+    <mat-label>{{ item.label }}</mat-label>
+    <input matInput placeholder="Enter your firstname" value="" />
+  </mat-form-field>
+
+  <mat-form-field
+    *ngIf="item.type === 'password'"
+    class="example-full-width"
+    appearance="fill"
+  >
+    <mat-label>{{ item.label }}</mat-label>
+    <input matInput placeholder="Enter your password" value="" />
+  </mat-form-field>
+
+  <mat-form-field
+    *ngIf="item.type === 'email'"
+    class="example-full-width"
+    appearance="fill"
+  >
+    <mat-label>{{ item.label }}</mat-label>
+    <input matInput placeholder="abc@gmail.com" value="" />
+  </mat-form-field>
+
+  <div *ngIf="item.type === 'textarea'" class="content">
+    <input matInput placeholder="write your message" value="" />
+  </div>
+    <button
+      *ngIf="item.type === 'button' || item.type === 'submit'"
+      mat-raised-button
+      type="{{ item.type }}"
+    >
+      {{ item.value }}
+    </button>
+    >
+  </div>
+
+</form>
+</mat-card>

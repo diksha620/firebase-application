@@ -1,0 +1,49 @@
+<div class="container">
+<div style="background-color: darkcyan; margin-top: 6vh; display:flex; width: 20vw ; text-align: center; height: 15vh; margin: 6vh auto;border-radius: 8px; ">
+  <form class="container-fluid justify-content-start">
+   <button style="color: red;  position: relative ; top: 40%; padding: 1vh; border-radius: 6px;" routerLink = "/dashboard"><span style="padding: 2rem;">Home</span></button> 
+  </form>
+</div>
+<h2 style="margin-left: 45%;">User Form <Table></Table></h2>
+<table *ngIf = "dataSource" mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="fileName">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.fileName}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef style="padding: 1rem; font-size: 24px;"> Actions </th>
+      <td mat-cell *matCellDef="let element"> 
+          <div>
+              <mat-icon 
+              style="margin-right: 2rem;"
+              (click) = "showPreviewFormIntable(element.formData)">
+                  preview
+              </mat-icon>
+
+              <mat-icon
+              class="pink-txt-color"
+              style="margin-right: 1rem; color: 2c3333"
+               (click) = "updateForm(element)"
+              >edit</mat-icon
+            >
+              <mat-icon 
+              (click) = "DeleteItemIntable(element.id)">
+                delete
+            </mat-icon>
+          </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+  

@@ -10,10 +10,14 @@ import { AuthService } from 'src/app/shared/herokulogin/auth-service-for-heroku.
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
- 
+  emailInvalid = false;
+  passwordInvalid = false;
+   
   constructor(private authService : AuthService, private routes : Router) { }
    
-  ngOnInit(): void {
+  ngOnInit(){
+    this.isEmailInvalid();
+    this.isPasswordInvalid();
   }
  
 
@@ -22,6 +26,31 @@ export class SignInComponent implements OnInit {
     password: new FormControl('' , [Validators.required]), 
   })
 
+  isEmailInvalid(){
+    this.signInForm.get('email')?.valueChanges.subscribe((val) => {
+       this.emailInvalid = false;
+    });
+ }
+  isPasswordInvalid(){
+    this.signInForm.get('password')?.valueChanges.subscribe((val) => {
+      this.passwordInvalid = false
+    })
+  }
+
+
+
+  error(err:any){
+   
+    if(err.error.includes('Invalid email id')){
+      this.emailInvalid = true;
+    }
+    else if(err.error.includes('Invalid Password')){
+      this.passwordInvalid = true;
+    }
+
+  }
+
+
   signInUser(){
     console.log("Insignuser")
     if(this.signInForm.valid){
@@ -29,7 +58,9 @@ export class SignInComponent implements OnInit {
       this.authService.signIn(this.signInForm.value).subscribe((response) => {
         console.log(response);
         this.routes.navigate(['dashboard'])
-      })
+      },
+      (err) => this.error(err)
+      )
       localStorage.setItem('form-data',JSON.stringify(this.signInForm.value))
     }
   }

@@ -18,9 +18,26 @@ import { SignInComponent } from './component/sign-in/sign-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-// import { MaterialModule } from "./material.module";
 import { MatInputModule } from  '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
+import PreviewFormComponent from './component/dashboard/previewForm/previewForm.component';
+import SaveFormComponent from './component/dashboard/save-form/save-form.component';
+import { FormTableComponent } from './component/dashboard/form-table/form-table.component';
+import {MatTableModule} from '@angular/material/table';
+import {DeleteFormComponent}  from './component/dashboard/delete-form/delete-form.component';
+import { CrudApplicationComponent } from './component/crud-application/crud-application.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { StudentFormComponent } from './component/student-form/student-form.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+
+
  
 @NgModule({
   declarations: [
@@ -30,9 +47,16 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     DashboardComponent,
     SignupComponent,
     SignInComponent,
-   
+    PreviewFormComponent,
+    SaveFormComponent,
+    FormTableComponent,
+    DeleteFormComponent,
+    CrudApplicationComponent,
+    StudentFormComponent
+  
 
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -48,10 +72,17 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     DragDropModule,
     MatInputModule,
     MatFormFieldModule,
-
-
-
-  ],
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatDialogModule,
+    MatTableModule,
+    MatToolbarModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatPaginatorModule,
+     MatSortModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

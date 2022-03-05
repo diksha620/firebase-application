@@ -1,11 +1,68 @@
 {
-  "controls": [
+  "controls": [],
+  "forms": [
     {
-      "title": "name",
+      "formData": [
+        [
+          {
+            "type": "text",
+            "name": "name",
+            "value": "",
+            "label": "Name",
+            "placeholder": "Enter your name",
+            "id": 1,
+            "formId": 1,
+            "fileName": "a"
+          },
+          {
+            "type": "password",
+            "name": "password",
+            "value": "",
+            "label": "password",
+            "placeholder": "Enter your password",
+            "id": 2
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "name": "name",
+            "value": "",
+            "label": "Name",
+            "placeholder": "Enter your name",
+            "id": 1,
+            "formId": 1,
+            "fileName": "a"
+          },
+          {
+            "type": "password",
+            "name": "password",
+            "value": "",
+            "label": "password",
+            "placeholder": "Enter your password",
+            "id": 2
+          }
+        ]
+      ],
+      "fileName": "b",
       "id": 1
     },
     {
-      "title": "name",
+      "formData": [
+        [
+          {
+            "type": "text",
+            "name": "name",
+            "value": "",
+            "label": "Name",
+            "placeholder": "Enter your name",
+            "id": 1,
+            "formId": 2,
+            "fileName": "diksha"
+          }
+        ]
+      ],
+      "fileName": "diksha1",
       "id": 2
     }
   ]

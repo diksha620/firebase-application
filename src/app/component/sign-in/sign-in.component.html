@@ -6,10 +6,12 @@
         <br>
         <span style="color: red;" *ngIf = "email && email.invalid && email.touched">Enter correct email</span>
         <br>
+        <span style="color: red;" *ngIf ="emailInvalid">Email is not registered</span>
         <input type = "password" placeholder="enter your password" formControlName = "password" >
         <br>
         <span style="color: red;" *ngIf = "password && password.invalid && password.touched">Enter correct password</span>
         <br>
+        <span style="color: red;" *ngIf ="passwordInvalid">Incorrect Password</span>
         <br>
         <span>New user<a routerLink = "/signup" style="margin-left: 1vw;">SignUp</a></span>
         <br>

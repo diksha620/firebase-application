@@ -47,8 +47,10 @@ export class FormTableComponent implements OnInit {
       })
       .subscribe(() => {})
     });
-    this.router.navigate(['/dashboard']
-  );
+    this.router.navigate(['/dashboard'])
+    .then(() => {
+      window.location.reload();
+    });
 
   }
   
@@ -65,3 +67,5 @@ export class FormTableComponent implements OnInit {
     });
   }
 }
+
+

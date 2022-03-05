@@ -22,9 +22,14 @@ export default class SaveFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
-  ngOnInit() {}
+  ngOnInit(
+    
+      
+  
+  ) {}
 
   SaveFormData(flag: boolean) {
+    
     if (flag) {
       if (this.data.isUpdateForm) {
         this.dashboardService.getRequest().subscribe((res: any) => {
@@ -34,7 +39,6 @@ export default class SaveFormComponent implements OnInit {
             delete id.fileName;
             return id;
           });
-
           const formDataDetails = {
             formData: res,
             fileName: this.data.fileName,
@@ -50,8 +54,9 @@ export default class SaveFormComponent implements OnInit {
               });
           });
         });
-        
-      } else {
+      } 
+
+      else {
         this.dashboardService.getRequest().subscribe((products) => {
           const formDataDetails = {
             formData: products,

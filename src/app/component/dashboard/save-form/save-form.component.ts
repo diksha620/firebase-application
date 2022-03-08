@@ -18,59 +18,36 @@ export default class SaveFormComponent implements OnInit {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<SaveFormComponent>,
     private dashboardService: DashboardService,
-    private router : Router,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
-  ngOnInit(
-    
-      
-  
-  ) {}
+  ngOnInit() {}
 
   SaveFormData(flag: boolean) {
-    
     if (flag) {
       if (this.data.isUpdateForm) {
-        this.dashboardService.getRequest().subscribe((res: any) => {
-          const getId = JSON.parse(JSON.stringify(res));
-          res = res.map((id: any) => {
-            delete id.formId;
-            delete id.fileName;
-            return id;
+        this.dashboardService
+          .putJsonDataInForm(this.data.formId, {
+            formData: this.data.controls,
+            fileName: this.data.fileName,
+          })
+          .subscribe(() => {
+            this.router.navigate(['/forms']);
           });
+        
+      } else {
+       
           const formDataDetails = {
-            formData: res,
+            formData: this.data.controls,
             fileName: this.data.fileName,
           };
-
-          this.dashboardService
-            .putJsonDataInForm(getId[0].formId, formDataDetails)
-            .subscribe(() => {
-              this.dashboardService.getRequest().subscribe((response: any) => {
-                Array.from(response).forEach((c: any) => {
-                  this.dashboardService.deleteitem(c.id).subscribe(() => {});
-                });
-              });
-          });
-        });
-      } 
-
-      else {
-        this.dashboardService.getRequest().subscribe((products) => {
-          const formDataDetails = {
-            formData: products,
-            fileName: this.data.fileName,
-          };
-          this.dashboardService.saveFormData(formDataDetails).subscribe(() => {
-            this.dashboardService.getRequest().subscribe((response: any) => {
-              Array.from(response).forEach((c: any) => {
-                this.dashboardService.deleteitem(c.id).subscribe(() => {});
-              });
-            });
-          });
-         
-        });
+          
+        this.dashboardService.saveFormData(formDataDetails).subscribe(() =>{
+          this.router.navigate(['/forms']);
+        })
+          
+    
       }
     }
   }

@@ -7,8 +7,10 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
+
 export class DashboardService {
-   endpoint = environment.ApiPoint
+   endpoint = environment.ApiPoint;
+   formsDataa : any
 
   constructor(private routes : Router , private http : HttpClient) 
   { }
@@ -47,5 +49,9 @@ export class DashboardService {
   
   putJsonDataInForm(id :number , data: any ){
     return this.http.put(`${this.endpoint}/forms/${id}` , data)
+  }
+
+  getFormDataWithIdFromJson(id: number) {
+    return this.http.get(`${this.endpoint}/forms/${id}`);
   }
 }

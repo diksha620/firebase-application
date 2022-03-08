@@ -36,13 +36,13 @@
   <div
     cdkDropList
     #doneList="cdkDropList"
-    [cdkDropListData]="products"
+    [cdkDropListData]="dashboardService.formsDataa"
     [cdkDropListConnectedTo]="[todoList]"
     class="example-list"
     (cdkDropListDropped)="drop($event)"
   >
-    <div class="example-box1" *ngIf="products">
-      <div class="example-box1" *ngFor="let item of products" cdkDrag>
+    <div class="example-box1" *ngIf="dashboardService.formsDataa">
+      <div class="example-box1" *ngFor="let item of dashboardService.formsDataa" cdkDrag>
         <mat-form-field
           *ngIf="item.type === 'text'"
           class="example-full-width"
@@ -84,25 +84,25 @@
       </div>
       <br />
       <br />
-  
-      <div *ngIf = "products && products.length > 0">
-        <mat-form-field class="example-full-width" appearance="fill" >
+
+      <div *ngIf="dashboardService.formsDataa && dashboardService.formsDataa.length > 0">
+        <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Filename</mat-label>
           <input
             matInput
             placeholder="Enter fileName"
-            value="{{ products[0].fileName }}"
+            value="{{ filename }}"
             type="text"
             #fileName
           />
         </mat-form-field>
-        <br>
+        <br />
         <button
           mat-raised-button
           class="pink-txt-color"
           (click)="saveForm(fileName.value)"
-          *ngIf="products && products.length > 0"
-         color = "warn"
+          *ngIf="dashboardService.formsDataa && dashboardService.formsDataa.length > 0 && fileName.value"
+          color="warn"
         >
           Save
         </button>
@@ -111,8 +111,8 @@
   </div>
   <button
     mat-button
-    (click)="showPreviewForm(products)"
-    *ngIf="products && products.length > 0"
+    (click)="showPreviewForm(dashboardService.formsDataa)"
+    *ngIf="dashboardService.formsDataa && dashboardService.formsDataa.length > 0"
   >
     Preview
   </button>

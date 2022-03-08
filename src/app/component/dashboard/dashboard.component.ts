@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/auth.service';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import JsonFormData from '../../../../my-form.json';
+import { CdkDragDrop,  moveItemInArray, } from '@angular/cdk/drag-drop';
+// import JsonFormData from '../../../../my-form.json';
 import { DashboardService } from './dashboard.service';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -10,21 +10,18 @@ import SaveFormComponent from './save-form/save-form.component';
 import { FormTableComponent } from './form-table/form-table.component';
 import { ActivatedRoute } from '@angular/router';
 
-
-
-
-export interface Root {
+interface Controls {
   controls: Control[];
 }
 
-export interface Control {
+ interface Control {
   name: string;
   label: string;
   value: string;
   type: string;
   placeholder: string;
   validators: Validators;
-  fileName : string;
+  fileName: string;
 }
 
 export interface Validators {
@@ -37,34 +34,46 @@ export interface Validators {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
+
+
 export class DashboardComponent implements OnInit {
   products: any = [];
   isUpdateForm = false;
-  elementid : any
+  elementid: any;
+  filename: any;
+  myForm = this.fb.group({});
+
   constructor(
     private auth: AuthService,
-    
-    private dashboardService: DashboardService,
+    public dashboardService: DashboardService,
     private fb: FormBuilder,
-    private Dialog : MatDialog,
-    private route : ActivatedRoute,
-    
-    
+    public Dialog: MatDialog,
+    private route: ActivatedRoute
   ) {}
 
-  getDataFromJson() {
-    this.dashboardService.getRequest().subscribe((response: any) => {
-      this.products = response;
-      this.createForm(this.products);
-    });
-  }
+ 
+
   ngOnInit() {
+     this.route.queryParams.subscribe((id:any) => {
+       if(id.id){
+       this.dashboardService.getFormDataWithIdFromJson(id.id)
+       .subscribe((response : any) =>{
+         console.log(response)
+         this.dashboardService.formsDataa = response.formData
+         this.filename = response.fileName
+         this.elementid = response.id
+         console.log(this.elementid)
+       });
+      }
+      else{
+        this.dashboardService.formsDataa = [];
+        this.filename = '';
+      }
+     })
     
-  this.getDataFromJson();
-     
   }
 
-  myForm = this.fb.group({});
+ 
 
   getType(type: String) {
     switch (type) {
@@ -121,79 +130,66 @@ export class DashboardComponent implements OnInit {
   }
 
   todo = ['input', 'password', 'email', 'button', 'submit', 'textarea'];
-  done = [];
-  data! : Control[];
-  
+  done = [''];
+  data : any;
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
-      this.dashboardService.getRequest().subscribe((response: any) => {
-        this.products = response;
-        const previousData = this.products[event.previousIndex];
-        const currentData = this.products[event.currentIndex];
-        this.dashboardService
-          .putRequest(previousData.id, currentData)
-          .subscribe(() => {
-            this.dashboardService
-              .putRequest(currentData.id, previousData)
-              .subscribe(() => {
-                this.getDataFromJson();
-              });
-          });
-      });
+      
+
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+
     } else {
       console.log('else is working');
+      // copyArrayItem(event.previousContainer.data,
+      //   event.container.data,
+      //   event.previousIndex,
+      //   event.currentIndex);
       const dataget = this.getType(
         event.previousContainer.data[event.previousIndex]
       );
-      this.dashboardService.postRequest(dataget).subscribe(() => {
-        this.getDataFromJson();
-      });
-    }
-  }
-
-  createForm(products: any) {
-    for (const product of products) {
-      this.myForm.addControl(product.name, this.fb.control(''));
-    }
-  }
-  
-  showPreviewForm(data : any){
-    let dialogRef = this.Dialog.open(PreviewFormComponent, { data });
-    dialogRef.afterClosed().subscribe((res : any ) => {
-      this.getDataFromJson();
-    })
-
-  }
-
-  saveForm(fileName:any) {
-   
-     const isUpdateForm = this.products[0].fileName ? true : false
-    //  console.log(this.products[0].fileName)
-    let dialogRef = this.Dialog.open(SaveFormComponent , {
-      data : {
-        fileName , isUpdateForm
+      if (this.dashboardService.formsDataa && this.dashboardService.formsDataa.length) {
+        this.dashboardService.formsDataa.push({ ...dataget });
+      } else {
+        this.dashboardService.formsDataa = [{ ...dataget}];
       }
+    }
+  }
+
+
+
+  showPreviewForm(data: any) {
+    let dialogRef = this.Dialog.open(PreviewFormComponent, { data });
+    dialogRef.afterClosed().subscribe((res: any) => {
+     
+    });
+  }
+
+  saveForm(fileName: any) {
+    const isUpdateForm = this.filename ? true : false;
+   
+    let dialogRef = this.Dialog.open(SaveFormComponent, {
+      data: {
+        fileName,
+        isUpdateForm,
+        controls: this.dashboardService.formsDataa,
+        formId: this.elementid,
+      },
     });
 
-    dialogRef.afterClosed().subscribe((res: any) => {  
-     this.getDataFromJson();
+    dialogRef.afterClosed().subscribe((res: any) => {
+     
     });
-    
   }
-  
 
   // deleteRequest(id: number) {
   //   this.dashboardService.deleteitem(id).subscribe(() => {
   //     this.getDataFromJson();
   //   });
   // }
-  
+
   logout() {
     this.auth.logout();
     localStorage.clear();
   }
-
-
-
 }

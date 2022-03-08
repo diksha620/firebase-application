@@ -39,18 +39,8 @@ export class FormTableComponent implements OnInit {
   }
 
   updateForm(element : any){
-    element.formData.forEach((res:any) => {
-      this.dashboardService.postRequest({
-        ...res,
-        formId : element.id,
-        fileName : element.fileName
-      })
-      .subscribe(() => {})
-    });
-    this.router.navigate(['/dashboard'])
-    .then(() => {
-      window.location.reload();
-    });
+    this.router.navigate(['/dashboard'] , {queryParams : {id : element.id}})
+    
 
   }
   
